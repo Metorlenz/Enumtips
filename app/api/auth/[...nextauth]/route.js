@@ -42,9 +42,15 @@ const handler = NextAuth ({
                 });        
     
                 if (!userExists) {
+                      const username = profile.login
+                ? profile.login.replace(/\s/g, "").toLowerCase()
+                : profile.email.split('@')[0]; 
+                        
+                    
                     await User.create ({
+                        
                         email: profile.email,
-                        username: profile.login.replace(/\s/g, "").toLowerCase(),
+                        username: username,
                         image: profile.avatar_url 
                     })
     
